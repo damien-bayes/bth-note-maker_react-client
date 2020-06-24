@@ -17,7 +17,7 @@ npm run build
 
 ## Virtualization (Docker)
 
-```bash 
+```bash
 timestamp=$(date +%s)
 
 docker build . --rm --file dockerfile --tag baythium-ecosystem/baythium-note_client:$timestamp
