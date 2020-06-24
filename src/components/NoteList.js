@@ -1,3 +1,11 @@
+/**
+ * Component: NoteList.js
+ *
+ * File: /src/components/NoteList.js
+ * Project: Baythium Note Maker
+ * Organization: Baythium Ecosystem: https://baythium.com
+ */
+
 /* THIRD-PARTY IMPORTS */
 import React, { useContext } from 'react';
 import { Menu, Badge } from 'antd';
@@ -7,8 +15,10 @@ import { Menu, Badge } from 'antd';
 /* Styles */
 import '../styles/components/note-list.css';
 
+/* Utils (Helpers) */
 import { truncate } from '../utils/string';
 
+/* Store */
 import {
   NoteContext,
   NotesContext
@@ -24,10 +34,12 @@ export default function NoteList() {
 
   const handleOnClick = e => {
     const foundNote = notes.find(note => {
-      return note.id === Number(e.key)
+      return note.id === Number(e.key);
     })
 
-    setNote(foundNote)
+    console.log(`Working with id: ${foundNote.id}`);
+
+    setNote(foundNote);
   }
 
   return(

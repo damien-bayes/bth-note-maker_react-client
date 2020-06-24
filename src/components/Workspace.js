@@ -18,7 +18,7 @@ import '../styles/components/workspace.css';
 
 import {
   NoteContext,
-  // NotesContext
+  NotesContext
 } from '../Store';
 
 import { db } from '../index';
@@ -28,18 +28,31 @@ import { db } from '../index';
 const { Content } = Layout;
 
 export default function Workspace() {
-  const [note, setNote] = useContext(NoteContext);
-  // const [notes, setNotes] = useContext(NotesContext);
+  const [note] = useContext(NoteContext);
+  const [notes, setNotes] = useContext(NotesContext);
 
-  const [modalVisibility, setModalVisibility] = useState(false); 
+  const [modalVisibility, setModalVisibility] = useState(false);
+
+  const [noteName, setNoteName] = useState('');
+  const [noteContent, setNoteContent] = useState('');
 
   const popConfirm = (e) => {
-    console.log(e);
+    deleteNote();
+  }
+
+  const deleteNote = () => {
+    db.notes.delete(note.id).then(_ => {
+      /* Update notes within app */
+      const newNotes = notes.filter((n) => n.id !== note.id);
+      setNotes(newNotes);
+
+      // window.location.reload();
+    })
   }
 
   const showModal = () => {
     setModalVisibility(true);
-  };
+  }
 
   const handleModalOk = e => {
     updateNote();
@@ -51,7 +64,11 @@ export default function Workspace() {
   }
 
   const handleEditorChange = value => {
-    setNote({ content: value });
+    setNoteContent(value);
+  }
+
+  const handleInputChange = value => {
+    setNoteName(value);
   }
 
   /**
@@ -60,33 +77,30 @@ export default function Workspace() {
    * @param {*} id
    */
   const updateNote = () => {
-    console.log('Start updating...', note.id)
+    console.log(`Start updating <${note.id}>: ${note.name}`);
 
+    /* @see: https://dexie.org/docs/Table/Table.update() */
     db.notes.update(note.id, {
-      name: note.name,
-      content: note.content,
+      name: noteName,
+      content: noteContent,
       updated_at: +new Date()
     }).then(function (updated) {
       if (updated) {
         console.log(`Note with the key ${note.id} was updated.`);
+
+        const noteToUpdate = notes.find((n) => n.id === note.id);
+        const newNotes = [
+          ...notes.filter((n) => n.id !== note.id),
+          Object.assign({}, noteToUpdate)
+        ];
+
+        setNotes(newNotes);
       }
       else {
         console.log(`Nothing was updated - there were no note with the primary key: ${note.id}`);
       }
-        
-    });
 
-    /*
-    db.table(NOTES_TABLE_NAME).update(id).then(() => {
-      const noteToUpdate = notes.find((note) => note.id === id);
-      const newNotes = [
-        ...notes.filter((note) => note.id !== id),
-        Object.assign({}, noteToUpdate)
-      ];
-
-      setNotes(newNotes);
     });
-    */
   }
 
   return(
@@ -95,13 +109,13 @@ export default function Workspace() {
         <Row justify="end">
           <Button onClick={showModal}>Edit</Button>
           <Modal
-            title="Note Editing"
+            title={ `Note Editing: ${note.name}` }
             visible={modalVisibility}
             onOk={handleModalOk}
             onCancel={handleModalCancel}
           >
             <label>Name</label>
-            <Input style={{ marginBottom: '16px' }} value={ note.name } />
+            <Input style={{ marginBottom: '16px' }} defaultValue={ note.name } onChange={(e) => handleInputChange(e.target.value)}/>
 
             <label>Content</label>
             <SimpleMDE onChange={handleEditorChange} value={ note.content }/>

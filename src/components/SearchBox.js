@@ -48,6 +48,8 @@ export default function SearchBox() {
       return note.id === Number(fragments[0])
     })
 
+    console.log(`Working with id: ${foundNote.id}`);
+
     setNote(foundNote)
   };
 

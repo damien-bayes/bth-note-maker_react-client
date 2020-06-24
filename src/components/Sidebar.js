@@ -1,6 +1,13 @@
 /* THIRD-PARTY IMPORTS */
-import React, { useState } from 'react';
-import { Button, Layout, Tooltip, Modal, Input } from 'antd';
+import React, { useState, useContext } from 'react';
+import {
+  Button,
+  Layout,
+  Tooltip,
+  Modal,
+  Input,
+  Badge
+} from 'antd';
 // import marked from 'marked';
 import SimpleMDE from 'react-simplemde-editor';
 
@@ -16,18 +23,23 @@ import NoteList from './NoteList';
 import { NAME } from '../configs/app';
 
 import { db } from '../index';
+// import notes from '../data/notes';
+
+import { NotesContext } from '../Store';
 
 /* ************************************************************************* */
 
 const { Sider } = Layout;
 
-export default function Sidebar(props) {
+export default function Sidebar() {
   const cls = ['bth-sidebar'];
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
   const [noteName, setNoteName] = useState('');
   const [noteContent, setNoteContent] = useState('');
+
+  const [notes, setNotes] = useContext(NotesContext);
 
   const showModal = () => {
     setModalVisibility(true);
@@ -66,15 +78,23 @@ export default function Sidebar(props) {
 
     /* VARIANT 1 */
     db.notes.add(note).then((id) => {
-      console.log(id)
+      console.log(`New note has been created with id: ${id}`);
+
+      /* Update notes within app */
+      const newNotes = [...notes, Object.assign({}, note, {id})];
+      setNotes(newNotes);
+
+      /* Reset */
+      setNoteName('');
+      setNoteContent('');
     });
 
     /*
     VARIANT 2
     db.table(DB_NAME).add(note).then((id) => {
-      const newNotes = [...this.state.notes, Object.assign({}, note, {id})];
+      const newNotes = [...notes, Object.assign({}, note, {id})];
 
-      this.setState({ notes: newNotes });
+      setState({ notes: newNotes });
     });
     */
   }
@@ -103,7 +123,8 @@ export default function Sidebar(props) {
         <SimpleMDE onChange={handleEditorChange}/>
       </Modal>
       
-      <NoteList notes = { props.notes }/>
+      <div>All Notes<Badge count={ notes.length } style={{ backgroundColor: '#f6d365', color: 'black', marginLeft: '8px', borderRadius: '4px' }} /></div>
+      <NoteList/>
     </Sider>
   )
 }
