@@ -1,0 +1,26 @@
+.bth-sidebar {
+  padding: 16px;
+}
+
+.bth-sidebar__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.bth-sidebar__logo img {
+  width: 32px;
+  margin-bottom: 8px;
+}
+
+.bth-sidebar__logo h1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.bth-sidebar__logo p {
+  font-size: 12px;
+  text-align: center;
+}
