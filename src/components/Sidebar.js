@@ -4,6 +4,8 @@ import { Button, Layout, Tooltip, Modal, Input } from 'antd';
 // import marked from 'marked';
 import SimpleMDE from 'react-simplemde-editor';
 
+import 'easymde/dist/easymde.min.css';
+
 /* CUSTOM IMPORTS */
 
 /* Assets */
@@ -12,6 +14,8 @@ import '../styles/components/sidebar.css';
 
 import NoteList from './NoteList';
 import { NAME } from '../configs/app';
+
+import { db } from '../index';
 
 /* ************************************************************************* */
 
@@ -22,11 +26,15 @@ export default function Sidebar(props) {
 
   const [modalVisibility, setModalVisibility] = useState(false);
 
+  const [noteName, setNoteName] = useState('');
+  const [noteContent, setNoteContent] = useState('');
+
   const showModal = () => {
     setModalVisibility(true);
   };
 
   const handleModalOk = e => {
+    addNote(noteName, noteContent);
     setModalVisibility(false);
   }
 
@@ -35,6 +43,40 @@ export default function Sidebar(props) {
   }
 
   const handleEditorChange = value => {
+    setNoteContent(value);
+  }
+
+  const handleInputChange = value => {
+    setNoteName(value);
+  }
+
+  /*
+   * Insert records
+   *
+   * WARNING: It throws an error when the primary already exists
+   */
+  const addNote = (name, content = null) => {
+    /* Note object */
+    const note = {
+      name: name,
+      content: content,
+      created_at: +new Date(),
+      updated_at: +new Date()
+    }
+
+    /* VARIANT 1 */
+    db.notes.add(note).then((id) => {
+      console.log(id)
+    });
+
+    /*
+    VARIANT 2
+    db.table(DB_NAME).add(note).then((id) => {
+      const newNotes = [...this.state.notes, Object.assign({}, note, {id})];
+
+      this.setState({ notes: newNotes });
+    });
+    */
   }
 
   return(
@@ -49,16 +91,16 @@ export default function Sidebar(props) {
       </Tooltip>
 
       <Modal
-        title="Note Editing"
+        title="Creating a new note"
         visible={modalVisibility}
         onOk={handleModalOk}
         onCancel={handleModalCancel}
       >
         <label>Name</label>
-        <Input id="name" style={{ marginBottom: '16px' }}/>
+        <Input style={{ marginBottom: '16px' }} onChange={(e) => handleInputChange(e.target.value)}/>
 
         <label>Content</label>
-        <SimpleMDE id="content" onChange={handleEditorChange}/>
+        <SimpleMDE onChange={handleEditorChange}/>
       </Modal>
       
       <NoteList notes = { props.notes }/>

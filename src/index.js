@@ -42,8 +42,11 @@ const schema = {
 db.version(1).stores(schema);
 
 /* Open the database */
-db.open().catch((err) => {
-  console.log(err.stack || err);
+db.open().catch('NoSuchDatabaseError', (e) => {
+  /* Database with that name did not exist */
+  console.error('Database not found');
+}).catch((e) => {
+  console.error ('Oh no, something\'s not quite right: ' + e);
 });
 
 db.on('populate', function() {

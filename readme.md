@@ -25,3 +25,4 @@ npm run build
 7. https://github.com/rafaelmotta/create-react-app-boilerplate
 8. https://github.com/dfahlander/Dexie.js/blob/master/samples/react/src/db.js
 9. https://golb.hplar.ch/2018/01/IndexedDB-programming-with-Dexie-js.html
+10. https://dexie.org/docs/Dexie/Dexie

@@ -42,7 +42,7 @@ export default function Workspace() {
   };
 
   const handleModalOk = e => {
-    updateNotes();
+    updateNote();
     setModalVisibility(false);
   }
 
@@ -59,7 +59,7 @@ export default function Workspace() {
    * 
    * @param {*} id
    */
-  const updateNotes = () => {
+  const updateNote = () => {
     console.log('Start updating...', note.id)
 
     db.notes.update(note.id, {
@@ -101,10 +101,10 @@ export default function Workspace() {
             onCancel={handleModalCancel}
           >
             <label>Name</label>
-            <Input id="name" style={{ marginBottom: '16px' }} value={ note.name } />
+            <Input style={{ marginBottom: '16px' }} value={ note.name } />
 
             <label>Content</label>
-            <SimpleMDE id="content" onChange={handleEditorChange} value={ note.content }/>
+            <SimpleMDE onChange={handleEditorChange} value={ note.content }/>
           </Modal>
 
           <Popconfirm
