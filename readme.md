@@ -15,6 +15,15 @@ npm run start
 npm run build
 ```
 
+## Virtualization (Docker)
+
+```bash
+timestamp=$(date +%s)
+
+docker build . --rm --file dockerfile --tag baythium-ecosystem/baythium-note_client:$timestamp
+docker run -d --name baythium-note_client --expose 10091 --net baythium-network-1 -e "VIRTUAL_HOST=note.baythium.com,note.bayesianflow.space" --restart=on-failure:3 baythium-ecosystem/baythium-note_client:$timestamp
+```
+
 ## References
 1. https://github.com/facebook/create-react-app
 2. https://github.com/markedjs/marked

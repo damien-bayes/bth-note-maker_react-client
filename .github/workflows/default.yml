@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.KEY }}
-          source: "dist/*,dockerfile,nginx/*"
+          source: "build/*,dockerfile,nginx/*"
           target: "baythium-projects/baythium-note_client"
           rm: true
   deployment:
