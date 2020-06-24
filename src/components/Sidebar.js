@@ -1,3 +1,14 @@
+/**
+ * Component: Sidebar
+ *
+ * File: /src/components/Sidebar.js
+ * Project: Baythium Note Maker
+ * Organization: Baythium Ecosystem: https://baythium.com
+ */
+
+// eslint-disable-next-line
+"use strict";
+
 /* THIRD-PARTY IMPORTS */
 import React, { useState, useContext } from 'react';
 import {
@@ -29,6 +40,7 @@ import { NotesContext } from '../Store';
 
 /* ************************************************************************* */
 
+/* CONSTANTS */
 const { Sider } = Layout;
 
 export default function Sidebar() {

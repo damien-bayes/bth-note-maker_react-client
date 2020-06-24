@@ -6,6 +6,9 @@
  * Organization: Baythium Ecosystem: https://baythium.com
  */
 
+// eslint-disable-next-line
+"use strict";
+
 /* THIRD-PARTY IMPORTS */
 import React, { useContext, useState } from 'react';
 import { Input, AutoComplete } from 'antd';

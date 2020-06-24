@@ -6,6 +6,9 @@
  * Organization: Baythium Ecosystem: https://baythium.com
  */
 
+// eslint-disable-next-line
+"use strict";
+
 // This optional code is used to register a service worker.
 // register() is not called by default.
 

@@ -26,8 +26,6 @@ import './styles/app.css';
 import Sidebar from './components/Sidebar';
 import SearchBox from './components/SearchBox';
 
-// import { IN_BATTLE } from './configs/app';
-
 /* Routes */
 import Home from './routes/Home';
 import About from './routes/About';

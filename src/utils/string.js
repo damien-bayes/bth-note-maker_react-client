@@ -8,6 +8,9 @@
  * @see: https://www.lipsum.com/feed/html
  */
 
+// eslint-disable-next-line
+"use strict";
+
 export const truncate = function(str, maxLength){
   return (str.length <= maxLength) ? str : str.substring(0, maxLength) + '...';
 }

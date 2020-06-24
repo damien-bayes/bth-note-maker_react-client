@@ -1,10 +1,13 @@
 /**
- * Component: NoteList.js
+ * Component: Note List
  *
  * File: /src/components/NoteList.js
  * Project: Baythium Note Maker
  * Organization: Baythium Ecosystem: https://baythium.com
  */
+
+// eslint-disable-next-line
+"use strict";
 
 /* THIRD-PARTY IMPORTS */
 import React, { useContext } from 'react';

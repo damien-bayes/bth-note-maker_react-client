@@ -1,3 +1,14 @@
+/**
+ * Component: Workspace
+ *
+ * File: /src/components/Workspace.js
+ * Project: Baythium Note Maker
+ * Organization: Baythium Ecosystem: https://baythium.com
+ */
+
+// eslint-disable-next-line
+"use strict";
+
 /* THIRD-PARTY IMPORTS */
 import React, { useContext, useState } from 'react';
 import {
@@ -25,20 +36,21 @@ import { db } from '../index';
 
 /* ************************************************************************* */
 
+/* CONSTANTS */
 const { Content } = Layout;
 
 export default function Workspace() {
+  /* Contexts */
   const [note] = useContext(NoteContext);
   const [notes, setNotes] = useContext(NotesContext);
 
+  /* States */
   const [modalVisibility, setModalVisibility] = useState(false);
 
   const [noteName, setNoteName] = useState('');
   const [noteContent, setNoteContent] = useState('');
 
-  const popConfirm = (e) => {
-    deleteNote();
-  }
+  const popConfirm = _ => deleteNote();
 
   const deleteNote = () => {
     db.notes.delete(note.id).then(_ => {

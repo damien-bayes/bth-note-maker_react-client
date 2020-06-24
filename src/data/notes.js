@@ -1,7 +1,7 @@
 /**
  * Notes (Seeds)
  *
- * File: /src/configs/dexie.js
+ * File: /src/data/notes.js
  * Project: Baythium Note Maker
  * Organization: Baythium Ecosystem: https://baythium.com
  * 
