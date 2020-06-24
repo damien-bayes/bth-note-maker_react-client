@@ -13,7 +13,7 @@ ENV NGINX_VERSION 1.16.1
 ########
 # LAYERS
 ########
-COPY dist/ /usr/share/nginx/html/
+COPY build/ /usr/share/nginx/html/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/custom-errors.conf /etc/nginx/custom-errors.conf
 COPY nginx/nginx.default.conf /etc/nginx/conf.d/default.conf
