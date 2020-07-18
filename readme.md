@@ -1,4 +1,4 @@
-# Baythium Note Maker
+# Baythium Note Maker - Client
 
 Baythium note maker for all needs
 
